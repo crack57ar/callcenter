@@ -4,6 +4,6 @@ import java.util.SortedSet;
 
 public interface Selector {
 
-	Employee select (SortedSet<Employee> employees);
+	Atendable select (SortedSet<Employee> employees);
 	
 }

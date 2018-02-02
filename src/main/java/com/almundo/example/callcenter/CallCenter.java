@@ -20,7 +20,7 @@ public class CallCenter {
 			}
 		};
 		this.employees = new TreeSet<Employee>(comp);
-		this.dispatcher = new Dispatcher(new PrioritySelector(),employees);		
+		this.dispatcher = new Dispatcher(new AnswerMachineSelector(),employees);		
 	}
 
 	public void startCallCenter() {
@@ -33,7 +33,7 @@ public class CallCenter {
 	
 	public void stopCallCenter() {
 		//...
-		dispatcher.releaseDispatcher();
+		dispatcher.releaseDispatcher();		
 		System.out.println("llamdas en curso: " + Dispatcher.LLAMADAS_EN_CURSO);
 	}
 	

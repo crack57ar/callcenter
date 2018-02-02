@@ -1,7 +1,9 @@
 package com.almundo.example.callcenter;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.SortedSet;
 
 /**
@@ -16,6 +18,9 @@ public class Dispatcher {
 	private Selector selector;
 	private SortedSet<Employee> employees;
 	private List<Thread> oncoursecalls;
+	private Queue<Call> onwaitcalls;
+	private Thread owmThread;
+	private OnWaitCallManager owm;
 	
 	
 	public Dispatcher(Selector selector, SortedSet<Employee> employees) {
@@ -23,24 +28,27 @@ public class Dispatcher {
 		this.selector = selector;
 		this.employees = employees;
 		this.oncoursecalls = new ArrayList<Thread>();
+		this.onwaitcalls = new LinkedList<Call>();
+		this.owm = new OnWaitCallManager(this);
+		this.owmThread = new Thread(owm);		
+		this.owmThread.start();
 	}
 	
+	
+	/* Ahora nunca pasara que al seleccion del que atendera la llamada sea null, tendremos un contestador */
 	public void dispatch(Call c) {
-		Employee selected = selector.select(employees);
-		if(selected != null) {
-			synchronized (LLAMADAS_EN_CURSO) {
-				if (LLAMADAS_EN_CURSO < LLAMADAS_CONCURRENTES) {
-					c.assignCall(selected);
-					Thread oncoursecall = new Thread(c);
-					oncoursecall.start();
-					oncoursecalls.add(oncoursecall);
-				}else {
-					System.err.println("No se aceptan mas llamadas concurrentes, llamdas en curso: " + LLAMADAS_EN_CURSO);
-				}
-			}		
-		}else {
-			System.out.println("No hay empleados libres!");
-		}
+		Atendable selected = selector.select(employees);
+		synchronized (LLAMADAS_EN_CURSO) {
+			if (LLAMADAS_EN_CURSO < LLAMADAS_CONCURRENTES) {
+				c.assignCall(selected);
+				Thread oncoursecall = new Thread(c);
+				oncoursecall.start();
+				oncoursecalls.add(oncoursecall);
+			}else {
+				onwaitcalls.add(c);
+				System.out.println("agrego a la cola de espera :" + onwaitcalls.toString());
+			}
+		}		
 	}
 	
 	public Selector getSelector() {
@@ -53,13 +61,25 @@ public class Dispatcher {
 	
 	public void releaseDispatcher() {
 		try {
-			for (Thread oncoursecall : oncoursecalls) {
-				oncoursecall.join();
+			for (int i = 0; i < oncoursecalls.size(); i++) {
+				oncoursecalls.get(i).join();
 			}
+			this.owm.stopManager();
+			this.owmThread.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}		
+	}
+
+	public void dispatchOnWait() {
+		Call c = onwaitcalls.poll();
+		System.out.println("saco llamada de la cola de espera :" + onwaitcalls.toString());
+		dispatch(c);		
+	}
+
+	public boolean hasOnWait() {
+		return !onwaitcalls.isEmpty();
 	}
 
 }

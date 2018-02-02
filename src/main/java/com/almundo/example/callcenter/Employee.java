@@ -1,6 +1,6 @@
 package com.almundo.example.callcenter;
 
-public abstract class Employee {
+public abstract class Employee implements Atendable{
 	
 	private static int EMPLOYEE_NUMBER = 0;
 	private String name;
