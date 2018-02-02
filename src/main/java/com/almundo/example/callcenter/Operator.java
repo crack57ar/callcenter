@@ -4,7 +4,7 @@ public class Operator extends Employee {
 
 	public Operator(String name) {
 		super(name);		
-		super.setPriority(3);
+		super.setPriority(30);
 	}
 	
 	@Override

@@ -14,8 +14,9 @@ public class CallCenter {
 		super();		
 		Comparator<Employee> comp = new Comparator<Employee>() {
 
-			public int compare(Employee o1, Employee o2) {				
-				return o1.getPriority()-o2.getPriority();
+			public int compare(Employee o1, Employee o2) {
+					int prio = o1.getPriority()-o2.getPriority();
+				return prio == 0 ?  o1.getSocialId()-o2.getSocialId() : prio;
 			}
 		};
 		this.employees = new TreeSet<Employee>(comp);
@@ -40,6 +41,10 @@ public class CallCenter {
 		dispatcher.dispatch(call);
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.employees.toString();
+	}
 	
 }

@@ -29,7 +29,7 @@ public class Dispatcher {
 		Employee selected = selector.select(employees);
 		if(selected != null) {
 			synchronized (LLAMADAS_EN_CURSO) {
-				if (LLAMADAS_EN_CURSO <= LLAMADAS_CONCURRENTES) {
+				if (LLAMADAS_EN_CURSO < LLAMADAS_CONCURRENTES) {
 					c.assignCall(selected);
 					Thread oncoursecall = new Thread(c);
 					oncoursecall.start();

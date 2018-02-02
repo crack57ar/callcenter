@@ -4,7 +4,7 @@ public class Director extends Employee {
 	
 	public Director(String name) {
 		super(name);
-		super.setPriority(1);
+		super.setPriority(10);
 	}
 	
 	@Override
