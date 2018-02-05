@@ -1,5 +1,11 @@
 package com.almundo.example.callcenter;
 
+/** 
+ * Objeto que implementa Atendable con la intencion de poder ser usado por un Selector 
+ * y ser capaz de atender una llamada entrante. Es clasicamente un Mock de un contestador.
+ * 
+ **/
+
 public class AnswerMachine implements Atendable {
 
 	private String mensaje;
@@ -7,6 +13,7 @@ public class AnswerMachine implements Atendable {
 	public AnswerMachine(String mensaje) {
 		this.mensaje = mensaje;
 	}
+	
 	@Override
 	public boolean isOcupaid() {
 		// nunca estara ocupado el contestador
@@ -20,7 +27,6 @@ public class AnswerMachine implements Atendable {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return "Contestador [ mensaje : "+mensaje+" ]";
 	}
 	

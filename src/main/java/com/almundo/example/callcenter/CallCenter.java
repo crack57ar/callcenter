@@ -4,6 +4,12 @@ import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/**
+ * Objeto que representa la entidad principal del dominio del problema, 
+ * un Call Center, contiene un conjunto de empleados ordenados por prioridad
+ * y un dispatcher  
+ ***/
+
 public class CallCenter {
 		
 	private SortedSet<Employee> employees;
@@ -34,7 +40,7 @@ public class CallCenter {
 	public void stopCallCenter() {
 		//...
 		dispatcher.releaseDispatcher();		
-		System.out.println("llamdas en curso: " + Dispatcher.LLAMADAS_EN_CURSO);
+		System.out.println("llamdas en curso: " + Dispatcher.ON_COURSE_CALLS);
 	}
 	
 	public void incomingCall(Call call) {
@@ -43,7 +49,6 @@ public class CallCenter {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.employees.toString();
 	}
 	

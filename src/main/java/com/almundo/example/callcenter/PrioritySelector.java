@@ -1,13 +1,21 @@
 package com.almundo.example.callcenter;
 
-import java.util.SortedSet;
+import java.util.Set;
+
+/**
+ * Implementacion de Selector que asume tener el conjunto de empleados ordenado 
+ * por prioridad. Selecciona el priemro libre. Si no tiene ninguno devuelve un valor 
+ * Nulo.
+ **/
 
 public class PrioritySelector implements Selector {
 
-	public Atendable select(SortedSet<Employee> employees) {
-		/* Metodo que busca los empleados de prio 1 o 2 o 3 en ese orden. 
-		 * El Set se asume ordenado por prioridad. Solo debo encontrar el primero libre.
-		 */
+	/* 
+	 * Metodo que busca los empleados de prioridad 30 o 20 o 10 en ese orden. 
+	 * El Set se asume ordenado por prioridad. Solo debo encontrar el primero libre.
+	 */
+	public Atendable select(Set<Employee> employees) {
+		
 		Atendable selected = null;
 		
 		for (Atendable employee : employees) {

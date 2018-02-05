@@ -1,5 +1,15 @@
 package com.almundo.example.callcenter;
 
+/**
+ * Objeto que representa al manejador de llamadas en espera.
+ * Es creado por el Dispatcher y llamada con el mismo como referencia al
+ * momento de creacion. Su funcion es esperar que la cola de llamdas on wait 
+ * tenga llamadas y se liberen la cantidad de llamdas en curso por debajo de 
+ * el maximo de concurrencia para pedirle al Dispatcher que despache la primer
+ * llamdas de la cola.
+ * 
+ ***/
+
 public class OnWaitCallManager implements Runnable{
 
 	private volatile boolean RUNNING = false;
@@ -12,17 +22,16 @@ public class OnWaitCallManager implements Runnable{
 	@Override
 	public void run() {
 		RUNNING = true;
-		System.out.println("empiezo a correr....");
+		System.out.println("[OnWaitCallManager] Starting...");
 		while(RUNNING) {			
-			if(dispatcher.hasOnWait() && Dispatcher.LLAMADAS_EN_CURSO < Dispatcher.LLAMADAS_CONCURRENTES) {
+			if(dispatcher.hasOnWait() && Dispatcher.ON_COURSE_CALLS < Dispatcher.CONCURRENT_CALLS) {
 				dispatcher.dispatchOnWait();
 			}
-		}
-		System.out.println("dejo a correr, ojo!....");
+		}		
 	}
 	
 	public void stopManager() {
-		System.out.println("deteniendo el OnWaitManager...");
+		System.out.println("[OnWaitCallManager] Stoping...");
 		RUNNING = false;		
 	}
 

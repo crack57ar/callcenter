@@ -1,5 +1,14 @@
 package com.almundo.example.callcenter;
 
+/** 
+ * Objeto que representa una llamada, implementa Runnable 
+ * para poder correrlo dentro de un Hilo de ejecucion distinto.
+ * La llamada es un mock que duerme un tiempo aleatorio entre 5 y 10 segundos.
+ * Cada llamada tiene un id unico auto-incremental. 
+ * Se modifica en contador de llamadas de la clase Dispatcher (ON_COURSE_CALLS) 
+ * a medida que se comienzan y se terminan las llamdas.
+ *  
+ * **/
 
 public class Call implements Runnable{
 
@@ -19,8 +28,8 @@ public class Call implements Runnable{
 	}
 	
 	private void endCall() {
-		Dispatcher.LLAMADAS_EN_CURSO--;
-		System.out.println("llamada de " + atendable.toString() + " termino " + " [llamadas en curso: " + Dispatcher.LLAMADAS_EN_CURSO + "]");
+		Dispatcher.ON_COURSE_CALLS--;
+		System.out.println("llamada de " + atendable.toString() + " termino " + " [llamadas en curso: " + Dispatcher.ON_COURSE_CALLS + "]");
 		atendable.setOcupaid(false);
 		atendable = null;
 	}
@@ -28,8 +37,8 @@ public class Call implements Runnable{
 	public void assignCall(Atendable e) {
 		atendable = e;
 		atendable.setOcupaid(true);
-		Dispatcher.LLAMADAS_EN_CURSO++;
-		System.out.println("llamada de " + atendable.toString() + " [llamadas en curso: " + Dispatcher.LLAMADAS_EN_CURSO + "]");
+		Dispatcher.ON_COURSE_CALLS++;
+		System.out.println("llamada de " + atendable.toString() + " [llamadas en curso: " + Dispatcher.ON_COURSE_CALLS + "]");
 	}
 	
 	public boolean isAssigned() {

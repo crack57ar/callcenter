@@ -1,5 +1,13 @@
 package com.almundo.example.callcenter;
 
+/**
+ * Objeto que representa un empleado, implementa Atendable para poder
+ * atender llamadas. Tienen un numero de legajo auto-incremental, un nombre 
+ * y una prioridad que cambia segun la implementacion. Cada implementacion de 
+ * un empleado tendra una prioridad acorde a su jerarquia.
+ * 
+ * **/
+
 public abstract class Employee implements Atendable{
 	
 	private static int EMPLOYEE_NUMBER = 0;
