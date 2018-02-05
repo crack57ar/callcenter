@@ -1,5 +1,6 @@
 # CallCenter
-Ejercicio de entrevista practico para Almundo.com
+Ejercicio de entrevista practico para Almundo.com.
+Los test de la aplicacion se encuentran el la clase AppTest, un metodo por test unitario que se necesitó hachoe en Junit 3.8.1
 
 ## Explicacion
 
