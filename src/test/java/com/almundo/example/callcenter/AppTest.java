@@ -51,6 +51,7 @@ public class AppTest extends TestCase
     	System.out.println("\n-------------- no mas llamadas entrantes ------------------\n");
     	
     	cc.stopCallCenter();
+    	assert(Dispatcher.ON_COURSE_CALLS == 0);
     }
     
     /**
