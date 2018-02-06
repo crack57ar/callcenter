@@ -10,9 +10,9 @@ El dispatcher es implementado por el objeto **Dispatcher**. El objeto tiene un m
 La llamda esta representada con el objeto **Call** y la recibe el CallCenter como parametro del metodo *incomingCall( Call c )*. La llamda implementa *Runnable* para poder correr un *Thread* dedicado a ella y asi poder atender de manera concurrente y asincronica la llegada de las mismas.
 Al terminar el ciclo de ejecucion del call center se debe invocar al metodo *releaseDispatcher()* del Dispatcher para que se espere la finalizacion de las llamadas en curso y luego se termine el hilo principal del programa.
 
-#### Cuestinoes de Diseño
+#### Cuestiones de Diseño
 
-Se opta por mantener un conjunto ordenado de empleados dado que es mucho mas performante tardar log(n) cada vez que ingresa un nuevo empleado y luego un orden constante al obtener (linael cuando todos los empleados estan ocupados) el proximo a asignar, que buscar en toda el conjunto de empleados tantas veces como jerarquias se tenga cada vez que se quiere asignar. Es ademas mas flexible el diseño a la hora de agregar una nueva jerarquia, por ej Subdirector. Dado que el Selector no esta acoplado a las implementaciones de Employee, solo deberia agregar la implemetacion Subdirector y asignarle una prioridad que este entre las de Director y Supervisor.
+Se opta por mantener un conjunto ordenado de empleados dado que es mucho mas performante tardar log(n) cada vez que ingresa un nuevo empleado y luego un orden constante al obtener (linael cuando todos los empleados estan ocupados) el proximo a asignar, que buscar en todo el conjunto de empleados tantas veces como jerarquias se tenga cada vez que se quiere asignar. Es ademas mas flexible el diseño a la hora de agregar una nueva jerarquia (por ej Subdirector). Dado que el Selector no esta acoplado a las implementaciones de Employee, solo deberia agregar la implemetacion Subdirector y asignarle una prioridad que este entre las de Director y Supervisor.
 
 ### Diagrama de Clases
 
