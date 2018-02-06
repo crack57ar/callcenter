@@ -27,6 +27,10 @@ public class CallCenter {
 		//...
 	}
 	
+	public SortedSet<Employee> getEmployees(){
+		return employees;
+	}
+	
 	public void addEmployee(Employee e) {
 		employees.add(e);
 	}
