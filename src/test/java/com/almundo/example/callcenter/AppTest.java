@@ -1,10 +1,5 @@
 package com.almundo.example.callcenter;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -37,23 +32,7 @@ public class AppTest extends TestCase
     {
     	CallCenter cc = new CallCenter();
     	
-    	populate(cc, employeeAmount);
     	
-    	cc.startCallCenter();
-    	
-    	for (int i = 0; i < callAmount; i++) {
-    		Call c = new Call();
-    		cc.incomingCall(c);
-    	}
-    	
-    	System.out.println("\n-------------- no mas llamadas entrantes ------------------\n");
-    	
-    	cc.stopCallCenter();
-    	
-    	assert(Dispatcher.ON_COURSE_CALLS == 0);
-    }
-    
-    private void populate(CallCenter cc, int employeeAmount) {
     	for (int i = 0; i < (employeeAmount)/2; i++) {
     		Employee op = new Operator("EL SUFRIDO_"+i);    		    		
     		cc.addEmployee(op);    		    		
@@ -71,30 +50,17 @@ public class AppTest extends TestCase
     	System.out.println("");
     	
     	cc.startCallCenter();
-    }
-    
-    /* tomo un comparador de prioridad y chequeo que mi conjunto este ordenado como espero */
-    public void testOrdererByPriority() {
-    	CallCenter cc = new CallCenter();
     	
-    	populate(cc, 10);
+    	for (int i = 0; i < callAmount; i++) {
+    		Call c = new Call();
+    		cc.incomingCall(c);
+    	}
     	
-    	Comparator<Employee> comp = new Comparator<Employee>() {
-
-			public int compare(Employee o1, Employee o2) {
-					int prio = o1.getPriority()-o2.getPriority();
-				return prio == 0 ?  o1.getSocialId()-o2.getSocialId() : prio;
-			}
-		};
-		
-		String before = cc.getEmployees().toString();
-		List<Employee> list = new ArrayList<Employee>();
-		list.addAll(cc.getEmployees());
-		Collections.sort(list,comp);
-		String after = list.toString();
-		System.out.println(after);
-		System.out.println(before);
-		assert(before.equals(after));
+    	System.out.println("\n-------------- no mas llamadas entrantes ------------------\n");
+    	
+    	cc.stopCallCenter();
+    	
+    	assert(Dispatcher.ON_COURSE_CALLS == 0);
     }
     
     /**
